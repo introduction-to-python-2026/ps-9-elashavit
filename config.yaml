@@ -1,9 +1,5 @@
-selected_features:
+features:
   - PPE
-  - HNR
-  - freq_range
-  - jitter_shimmer_ratio
-  - noise_to_harmonic
-  - complexity_score
+  - MDVP:Jitter(Abs)
 
 path: "my_model.joblib"
