@@ -1,35 +1,26 @@
-import pandas as pd
-import joblib
-from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import accuracy_score
+# Download the data from your GitHub repository
+!wget https://raw.githubusercontent.com/yotam-biu/ps9/main/parkinsons.csv -O /content/parkinsons.csv
+!wget https://raw.githubusercontent.com/yotam-biu/python_utils/main/lab_setup_do_not_edit.py -O /content/lab_setup_do_not_edit.py
+import lab_setup_do_not_edit
 
-# Load dataset
-df = pd.read_csv("parkinsons.csv")
-df.columns = df.columns.str.strip()
-
-# Select features (exactly 2 for the Test Runner)
-features = ['PPE', 'MDVP:Jitter(Abs)']
-X = df[features]
+import pandas
+df = pandas.read_csv("/content/parkinsons.csv")
+selected_features = ['PPE', 'MDVP:Fo(Hz)']
+x = df[selected_features]
 y = df['status']
+from sklearn.preprocessing import MinMaxScaler
 
-# Split into train/test
-x_train, x_test, y_train, y_test = train_test_split(
-    X, y,
-    test_size=0.2,
-    random_state=42,
-    stratify=y
-)
+scaler = MinMaxScaler()
+x = scaler.fit_transform(x)
+from sklearn.model_selection import train_test_split
 
-# Train model
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+from sklearn.neighbors import KNeighborsClassifier
+
 model = KNeighborsClassifier(n_neighbors=10)
 model.fit(x_train, y_train)
+from sklearn.metrics import accuracy_score
 
-# Evaluate
 y_pred = model.predict(x_test)
 accuracy = accuracy_score(y_test, y_pred)
-print("Accuracy:", accuracy)
-
-# Save the trained model (will create my_model.joblib)
-joblib.dump(model, "my_model.joblib")
-print("my_model.joblib saved successfully")
+print(f'Accuracy: {accuracy}')
