@@ -6,4 +6,4 @@ selected_features:
   - noise_to_harmonic
   - complexity_score
 
-path: "parkinsons_rf.joblib"
+path: "my_model.joblib"
