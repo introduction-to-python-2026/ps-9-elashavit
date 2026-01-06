@@ -3,58 +3,27 @@
 !wget https://raw.githubusercontent.com/yotam-biu/python_utils/main/lab_setup_do_not_edit.py -O /content/lab_setup_do_not_edit.py
 import lab_setup_do_not_edit
 
-
-import pandas as pd
-
-df = pd.read_csv("parkinsons.csv")
-
-
-selected_features = [
-    'MDVP:APQ',
-    'MDVP:PPQ',
-    'NHR',
-    'HNR',
-    'spread1',
-    'spread2',
-    'D2',
-    'PPE'
-]
-output_feature = 'status'
-
-X = df[selected_features]
-y = df[output_feature]
-
-
+import pandas
+df = pandas.read_csv("/content/parkinsons.csv")
+selected_features = ['PPE', 'MDVP:Fo(Hz)']
+x = df[selected_features]
+y = df['status']
 from sklearn.preprocessing import MinMaxScaler
 
 scaler = MinMaxScaler()
-X_scaled = scaler.fit_transform(X)
+x = scaler.fit_transform(x)
+from sklearn.model_selection import train_test_split
 
-
-
-rom sklearn.model_selection import train_test_split
-
-x_train, x_test, y_train, y_test = train_test_split(
-    X_scaled,
-    y,
-    test_size=0.2,
-    random_state=42
-)
-
-
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
 from sklearn.neighbors import KNeighborsClassifier
 
 model = KNeighborsClassifier(n_neighbors=10)
 model.fit(x_train, y_train)
-
-
-
 from sklearn.metrics import accuracy_score
 
 y_pred = model.predict(x_test)
 accuracy = accuracy_score(y_test, y_pred)
-
-print("Accuracy:", accuracy)
+print(f'Accuracy: {accuracy}')
 
 
 
