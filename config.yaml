@@ -1,5 +1,6 @@
-features:
-  - PPE
-  - MDVP:Jitter(Abs)
+features:[
+   PPE ,
+   MDVP:Jitter(Abs)
+   ]
 
 path: "my_model.joblib"
