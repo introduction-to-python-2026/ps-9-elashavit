@@ -1,2 +1,10 @@
-path: "path_to_model.joblib
-features: ['feature_A', 'feature_B']
+selected_features:
+  - PPE
+  - HNR
+  - freq_range
+  - jitter_shimmer_ratio
+  - noise_to_harmonic
+  - complexity_score
+
+path: "parkinsons_rf.joblib"
+
