@@ -7,4 +7,3 @@ selected_features:
   - complexity_score
 
 path: "parkinsons_rf.joblib"
-
